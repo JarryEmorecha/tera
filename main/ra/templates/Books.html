@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+	<title>Create Citation</title>
+	<link rel="stylesheet" href="{% static 'css/createcitation.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<style>
+.box {
+  box-sizing: border-box;
+  margin: 20px;
+
+}
+.zoom {
+  padding: 5px;
+  transition: transform .2s; /* Animation */
+  width: 100px;
+  height: 90px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.column {
+  float: left;
+  width: 10%;
+  padding-top: 5px;
+  padding-left: 50px;
+  padding-right: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+</style>
+
+<body style="background-color: #ebebeb">
+	 <nav>
+      <div class="logo"><a href="{% url 'ra:tera_homepage_view'%}"><img class="logo-style" src="{% static 'images/teralogo.png' %}"></a></div>
+      <label for="btn" class="icon">
+        <span class="fa fa-bars"></span>
+      </label>
+      <input type="checkbox" id="btn">
+      <ul>
+      <li>
+                <label for="btn-1" class="show">Citations +</label>
+                <a href="#">Citations</a>
+                <input type="checkbox" id="btn-1">
+                <ul>
+                <li><a href="#">Create New</a></li>
+                <li><a href="#">View History</a></li>
+                </ul>
+      </li>
+     
+      <li><a href="#">Grammar Check</a></li>
+      <li><a href="#">Analysis Tool</a></li>
+      <li><a href="#">Create My Essay</a></li>
+
+       <li>
+                <label for="btn-2" class="show">Profile <i class="fa fa-user" aria-hidden="true"></i></label>
+                <a href="#">Profile <i class="fa fa-user" aria-hidden="true"></i></a>
+                <input type="checkbox" id="btn-2">
+                <ul>
+                <li><a href="{% url 'ra:tera_dashboard_view'%}">Dashboard</a></li>	
+                <li><a href="#">Bookmarks</a></li>
+                <li><a href="#">Folders</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Logout</a></li>
+                </ul>
+      </li>
+      </ul>
+  </nav>
+   	<br>
+  	<div class="reftype-container">
+    <div class="wrapper">
+      <div class="navigation">
+        <input type="radio" name="tab" id="home" checked>
+        <input type="radio" name="tab" id="inbox">
+        <input type="radio" name="tab" id="contact">
+        <input type="radio" name="tab" id="heart">
+        <input type="radio" name="tab" id="about">
+        <label for="home" class="home"><a id="journal-tab" data-toggle="tab" href="#journal">Journal</a></label>
+        <label for="inbox" class="inbox"><a id="book-tab" data-toggle="tab" href="#book" role="tab"  aria-selected="false">Book</a></label>
+        <label for="contact" class="contact"><a href="#">Website</a></label>
+        <label for="heart" class="heart"><a href="#">Dissertation</a></label>
+        <label for="about" class="about"><a href="#">Others</a></label>
+        <div class="tab">
+		</div>
+</div>
+    </div>
+</div>
+    <div class="container register">
+                <div class="row">
+                    <div class="col-md-2 register-left">
+                        <img class="logo-style" src="{% static 'images/recentview2.png' %}" style="width: 80%">
+                        <h3>Welcome</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+                        <input type="submit" name="" value="Login"/><br/>
+                    </div>
+                    <div class="col-md-10 register-right" id="journal" role="tabpanel" aria-labelledby="journal-tab">
+                        <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="print-tab" data-toggle="tab" href="#print" role="tab" aria-controls="home" aria-selected="true">In Print</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="online-tab" data-toggle="tab" href="#online" role="tab" aria-controls="profile" aria-selected="false">Online</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">CIT DB</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="print" role="tabpanel" aria-labelledby="print-tab">
+                                <h3 class="register-heading">In Print Citation</h3>
+                                <div class="register-form">
+                                  <!--1st Row-->
+                                  <div class="form-group row">
+                                    <div class = "col-md-3">
+                                    <label>Contributors</label>
+                                    <select class="form-control">
+                                                <option class="hidden"  selected disabled>Author</option>
+                                                <option>Editor</option>
+                                                <option>Compiler</option>
+                                                <option>Translator</option>
+                                            </select>
+                                    </div>  
+
+                                      <div class="col-md-3">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="First Name *">
+                                      </div> 
+                           
+                                      <div class="col-md-2">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="M.I">
+                                      </div>
+
+                                      <div class="col-md-3">
+                                          <label style="color: #f8f9fa">Lname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Last Name*">
+                                      </div>
+
+                                      <div class="col-md-1.5">
+                                          <label style="color: #f8f9fa">Add </label>
+                                          <button type="button" class="btnRegister">+</button>
+                                      </div>
+                                  </div>
+                                  <!-- End of 1st Row -->
+                                  <!--2nd Row-->
+
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label>Citing</label>
+                                    <select class="form-control">
+                                                <option class="hidden"  selected disabled>The whole book</option>
+                                                <option>The whole book</option>  
+                                            </select>
+                                    </div>  
+
+                                      <div class="col-md-6">
+                                          <label>Source Tiitle </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Title *">
+                                      </div>
+                                  </div>
+                                  <!-- End of 2nd Row -->
+
+                                  <!--3rd Row-->
+                                  <div class="form-group row">
+                                    <div class = "col-md-4">
+                                    <label>Advanced Information</label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Volume">
+                                      </div> 
+                           
+                                      <div class="col-md-4">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Issue">
+                                      </div>
+
+                                      <div class="col-md-4">
+                                          <label style="color: #f8f9fa">Lname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Series">
+                                      </div>
+                                  </div>
+                                  <!-- End of 3rd Row -->
+
+                                  <!-- 4th Row -->
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label>Date Published</label>
+                                    <input type="date" class="form-control" id="id-regdate" name="dateRegistered">
+                                    </div> 
+
+                                    <div class = "col-md-3">
+                                      <label>Pages</label>
+                                      <input type="number" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Start">
+                                   </div> 
+
+                                    <div class = "col-md-3">
+                                      <label style="color: #f8f9fa">Pages</label>
+                                      <input type="number" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="End">
+                                   </div>   
+                                  </div>
+                                  <!-- End of 4th Row -->
+
+                                  <!-- 5th Row -->
+                                  <div class = "col-md-13">
+                                    <label>Add Annotation</label>
+                                      <textarea class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Annotation"></textarea>
+                                  </div>
+                                  <!-- End of 5th Row -->
+
+                                   <!-- 6th Row -->
+                                    <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <button type="submit" class="btnCancel">Cancel</button>
+                                    </div>
+
+                                    <div class = "col-md-6">
+                                    <button type="submit" class="btnRegister">Submit</button>
+                                    </div>
+                                  </div>
+
+                                     <!-- End of 6th Row -->
+                                           
+                                        </div>
+                                       
+                                </div>
+
+                                 <div class="tab-pane fade show" id="online" role="tabpanel" aria-labelledby="online-tab">
+                                    <h3 class="register-heading">Online Source Citations</h3>
+                                <div class="register-form">
+                                  <!--1st Row-->
+                                  <div class="form-group row">
+                                    <div class = "col-md-3">
+                                    <label>Contributors</label>
+                                    <select class="form-control">
+                                                <option class="hidden"  selected disabled>Author</option>
+                                                <option>Editor</option>
+                                                <option>Compiler</option>
+                                                <option>Translator</option>
+                                            </select>
+                                    </div>  
+
+                                      <div class="col-md-3">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="First Name *">
+                                      </div> 
+                           
+                                      <div class="col-md-2">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="M.I">
+                                      </div>
+
+                                      <div class="col-md-3">
+                                          <label style="color: #f8f9fa">Lname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Last Name*">
+                                      </div>
+
+                                      <div class="col-md-1.5">
+                                          <label style="color: #f8f9fa">Add </label>
+                                          <button type="button" class="btnRegister">+</button>
+                                      </div>
+                                  </div>
+                                  <!-- End of 1st Row -->
+
+                                  <!--2nd Row-->
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label>Citing</label>
+                                    <select class="form-control">
+                                                <option class="hidden"  selected disabled>The whole book</option>
+                                                <option>The whole book</option>  
+                                            </select>
+                                    </div>  
+
+                                      <div class="col-md-6">
+                                          <label>Source Tiitle </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Title *">
+                                      </div>
+                                  </div>
+                                  <!-- End of 2nd Row -->
+
+                                  <!--3rd Row-->
+                                  <div class="form-group row">
+                                    <div class = "col-md-4">
+                                    <label>Advanced Information</label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Volume">
+                                      </div> 
+                           
+                                      <div class="col-md-4">
+                                          <label style="color: #f8f9fa">Mname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Issue">
+                                      </div>
+
+                                      <div class="col-md-4">
+                                          <label style="color: #f8f9fa">Lname </label>
+                                          <input type="text" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Series">
+                                      </div>
+                                  </div>
+                                  <!-- End of 3rd Row -->
+
+                                  <!-- 4th Row -->
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label>Date Published</label>
+                                    <input type="date" class="form-control" id="id-regdate" name="dateRegistered">
+                                    </div> 
+
+                                    <div class = "col-md-3">
+                                      <label>Pages</label>
+                                      <input type="number" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Start">
+                                   </div> 
+
+                                    <div class = "col-md-3">
+                                      <label style="color: #f8f9fa">Pages</label>
+                                      <input type="number" class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="End">
+                                   </div>   
+                                  </div>
+                                  <!-- End of 4th Row -->
+
+                                  <!-- 5th Row -->
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label>Website Publication Information</label>
+                                    <input type="text" class="form-control" id="id-regdate" name="dateRegistered" placeholder="Website Title">
+                                    </div> 
+                                 
+                                    <div class = "col-md-6">
+                                    <label style="color: #f8f9fa">Website Publication Information</label>
+                                    <input type="text" class="form-control" id="id-regdate" name="dateRegistered" placeholder="Publisher/Sponsor">
+                                    </div> 
+                                  </div>
+                                  <!-- End of 6th Row -->
+
+                                  <!-- 7th Row -->
+                                  <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <label style="color: #f8f9fa">Website Publication Information</label>
+                                    <input type="text" class="form-control" id="id-regdate" name="dateRegistered" placeholder="URL">
+                                    </div> 
+
+                                    <div class="form-group row">
+                                    <div class = "col-md-3">
+                                    <label style="color: #f8f9fa">Version</label>
+                                    <input type="text" class="form-control" id="version" name="verion" placeholder="VERION">
+                                    </div> 
+                                 
+                                    <div class = "col-md-3">
+                                    <label>Electronic Publication Date</label>
+                                    <input type="date" class="form-control" id="id-regdate" name="dateRegistered" >
+                                    </div> 
+                                  </div>
+                                  <!-- End of 7th Row -->
+
+                                   <!-- 8th Row -->
+                                  <div class = "col-md-13">
+                                    <label>Add Annotation</label>
+                                      <textarea class="form-control" id="inputSKU" name= "stockKeepingUnit" placeholder="Annotation"></textarea>
+                                  </div>
+                                  <!-- End of 8th Row -->
+
+                                   <!-- 9th Row -->
+                                   <div class="form-group row">
+                                    <div class = "col-md-6">
+                                    <button type="submit" class="btnCancel">Cancel</button>
+                                    </div>
+
+                                    <div class = "col-md-6">
+                                    <button type="submit" class="btnRegister">Submit</button>
+                                    </div>
+                                  </div>
+
+                                     <!-- End of 9th Row -->
+                                           
+                                        </div>
+                                 </div>
+                            </div>
+                           
+                        </div>
+
+                       
+                    </div>
+                </div>
+
+<script>
+      $('.icon').click(function(){
+        $('span').toggleClass("cancel");
+      });
+</script>
+		
+
+</body>
+</html>

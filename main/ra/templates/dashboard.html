@@ -1,0 +1,174 @@
+{% load static %}
+
+{% block headerinclude %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<style>
+.box {
+  box-sizing: border-box;
+  margin: 20px;
+
+}
+.zoom {
+  padding: 5px;
+  transition: transform .2s; /* Animation */
+  width: 100px;
+  height: 90px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.zoom:hover {
+  transform: scale(1.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.column {
+  float: left;
+  width: 10%;
+  padding-top: 5px;
+  padding-left: 50px;
+  padding-right: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+</style>
+{% endblock headerinclude %}
+
+{% block content %} 
+
+<body style="background-image: url({% static 'images/bg.png' %});">
+   <nav>
+      <div class="logo"><a href="{% url 'ra:tera_homepage_view'%}"><img class="logo-style" src="{% static 'images/teralogo.png' %}"></a></div>
+      <label for="btn" class="icon">
+        <span class=></span>
+      </label>
+     
+      <ul>     
+      <li><a href="#">olok</a></li>
+      <li><a href="#">My Collections</a></li>
+
+       <li>
+                <label for="btn-2" class="show">My Account <i class="fa fa-user" aria-hidden="true"></i></label>
+                <a href="#">My Account <i class="fa fa-user" aria-hidden="true"></i></a>
+                
+                <ul>
+                <li><a href="{% url 'ra:tera_dashboard_view'%}">Dashboard</a></li>  
+                <li><a href="#">Bookmarks</a></li>
+                <li><a href="#">Folders</a></li>
+                <li><a href="{% url 'ra:tera_account_settings'%}">Settings</a></li>
+                <li><a href="#modalLogoutForm" data-toggle="modal" data-target="#modalLogoutForm" >Logout </a></li>
+                </ul>
+      </li>
+      </ul>
+  </nav>
+      <div class=" row">
+            <p style="padding-top: 25px; padding-left: 30px; color: white; font-size: 25px">Your Folders</p>
+            {% for folder in folders %}
+             <div class=" zoom column">
+            <img src="{% static 'images/savedfolder.png' %}" alt="Snow" style="width:150%">
+            <center><p style="padding-left:30px; color: white; font-size: 15px">{{folder.foldername}}</p></center>
+          </div>
+          {% endfor %}
+          
+           <div class="zoom column">
+            <img src="{% static 'images/new.png' %}" alt="Mountains" style="width:150%" name="addfolder" onclick="document.getElementById('id01').style.display='block'"></
+            <center><p style="padding-left:40px; color: white; font-size: 15px">New Folder</p></center>
+          </div>
+
+          
+          <!-- The Modal -->
+          <div id="id01" class="modal">
+            
+            <form class="modal-content" id = "form1" action="" method="POST" autocomplete="off" enctype="multipart/form-data">
+
+              <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+              {% csrf_token %}
+              <div class="container">
+
+                <p style="font-size: 25px; color: #800000">Create a New Folder</p>
+                <p style="font-size: 15px">Please provide a name for your folder.</p>
+                <hr>
+                <label for="foldername"><b>Folder Name</b></label>
+                <input type="text" placeholder="Enter Folder Name" name="foldername" required>
+
+                <div class="clearfix">
+                  <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                  <button type="submit" class="signupbtn">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+    </div>
+
+
+    <div class=" row">
+            <p style="padding-top: 120px; padding-left: 30px; color: white; font-size: 25px">Recent Views</p>
+          <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Snow" style="width:150%">
+            <center><p style="padding-left:30px; color: white; font-size: 15px">Evolution of IT</p></center>
+          </div>
+          <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Forest" style="width:150%">
+            <center><p style="padding-left:25px; color: white; font-size: 15px">Data Algorithms</p></center>
+          </div>
+          <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Mountains" style="width:150%">
+            <center><p style="padding-left:25px; color: white; font-size: 15px">Pseudonyms</p></center>
+          </div>
+          <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Forest" style="width:150%">
+            <center><p style="padding-left:25px; color: white; font-size: 15px">Research Assistance</p></center>
+          </div>
+           <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Forest" style="width:150%">
+            <center><p style="padding-left:25px; color: white; font-size: 15px">Artificial Intelligence</p></center>
+          </div>
+          <div class="zoom column">
+            <img src="{% static 'images/recentview.png' %}" alt="Mountains" style="width:150%">
+            <center><p style="padding-left:25px; color: white; font-size: 15px">Robotics</p></center>
+          </div>
+           <div class="zoom column">
+            <img src="{% static 'images/new.png' %}" alt="Mountains" style="width:150%">
+             <center><p style="padding-left:40px; color: white; font-size: 15px">See All</p></center>
+          </div>
+    </div>
+    </body>
+    {% endblock content %}  
+    
+<script>
+      $('.icon').click(function(){
+        $('span').toggleClass("cancel");
+      });
+</script>
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+    
+  
+

@@ -1,0 +1,481 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Admin Page</title>
+        <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="{% static 'css/adminStyles.css' %}" rel="stylesheet" /> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    </head>
+    <style>
+        .logo{
+          float: left;
+          color: #800000;
+          font-size: 27px;
+          font-weight: 600;
+          line-height: 40px;
+          padding-left: 15px;
+          
+        }
+       .logo-style{
+          height: 2.3em;
+        }
+    </style>
+    <body class="sb-nav-fixed">
+    
+        <nav class="sb-topnav navbar navbar-expand" style="background-color: #808080">
+            <!-- Navbar Brand-->
+            <img class="logo logo-style" src="{% static 'images/logo.png' %}">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" style="color: #ffd700; margin-left: 25px" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                           <a class="nav-link" href="{% url 'ra:admin_index_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Manage Users
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='i' %}">Import CSV File</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='s' %}">Register User</a>
+                                    
+                                </nav>
+                            </div>
+
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                                Resources
+                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="{% url 'ra:admin_site_view' %}">Site</a>
+                                            <a class="nav-link" href="{% url 'ra:admin_dissertations_access_view' %}">Dissertations</a>
+                                        </nav>
+                                    </div>
+
+                           
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                        Summary Reports
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_activeuser_view' %}">Active Users</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_siteaccess_view' %}">Site Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_colleges_view' %}">College Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_dissertations_view' %}">Dissertation Access</a>
+                                </nav>
+                                    </div>
+
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                           
+                            <a class="nav-link" href="{% url 'ra:admin_tables_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+
+                        
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Top User</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="{% url 'ra:admin_activeuser_view' %}">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"><a href="{% url 'ra:admin_activeuser_view' %}"></a></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Most Accessed Dissertation</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="{% url 'ra:admin_dissertations_view' %}">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"><a href="{% url 'ra:admin_dissertations_view' %}"></a></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Most Accessed Site</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="{% url 'ra:admin_siteaccess_view' %}">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"><a href="{% url 'ra:admin_siteaccess_view' %}"> </a></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Top College</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="{% url 'ra:admin_colleges_view' %}">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"><a href="{% url 'ra:admin_colleges_view' %}"></a></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Active Users
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100" height="60"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Site Access
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="60"></canvas></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-pie me-1"></i>
+                                        Colleges
+                                        </a>
+                                    </div>
+                                    <div class="card-body"><canvas id="myPieChart" width="100%" height="60"></canvas></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Users
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+
+                                        <tr>
+                                            <th>ID Number</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Last Login</th>
+                                            <th>College</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <<th>Last Name</th>
+                                            <th>First Name</th>
+                                            <th>College</th>
+                                            <th>ID Number</th>
+                                            <th>Last Login</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for user in users %}
+                                         <tr>
+                                            <td>{{user.username}}</td>
+                                            <td>{{user.first_name}}</td>
+                                            <td>{{user.last_name}}</td>
+                                            <td>{{user.last_login}}</td>
+                                            <td>{{user.department__name}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; TERA 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a> 
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/adminScripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <!-- <script src="{% static 'adminAssets/demo/chart-area-demo.js' %}"></script> -->
+        <!-- <script src="{% static 'adminAssets/demo/chart-bar-demo.js' %}"></script> -->
+        <!-- <script src="{% static 'adminAssets/demo/chart-pie-demo.js' %}"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+    </body>
+</html>
+<script type="text/javascript">
+var activeUser = {{ activeUser |safe }}
+var activeUserMax = "{{activeUserMax}}"
+var siteAccess = {{ siteAccess |safe }}
+var siteAccessMax = "{{siteAccessMax}}"
+var colleges = {{ colleges |safe }}
+date = new Date()
+start = new Date(date.getFullYear(), date.getMonth(), 1)
+end = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+
+ filter = "date"
+ months= ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+ 
+
+  $(document).ready(function(){
+        // console.log(start, end)
+
+    setLabel(start, end, ActiveUserchart,activeUser)
+        // console.log(start, end)
+
+    setLabel(start, end, siteAccesschart, siteAccess)
+    setLabel(start, end, collegeschart, colleges)
+
+  });
+  
+
+function getDateValue(d){
+    // d = new Date(new Date(date).getFullYear(), new Date(date).getMonth() + 1, 0)
+ 
+        if(d.getMonth()+1 < 10 & d.getDate() < 10)
+            return(d.getFullYear()+"-0"+ (d.getMonth()+1)+"-0"+ d.getDate())
+        else if(d.getMonth()+1 < 10)
+            return(d.getFullYear()+"-0"+ (d.getMonth()+1)+"-"+ d.getDate())
+        else if(d.getDate() < 10)
+            return(d.getFullYear()+"-"+ (d.getMonth()+1)+"-0"+ d.getDate())
+        else
+            return(d.getFullYear()+"-"+ (d.getMonth()+1)+"-"+ d.getDate())
+
+    
+}
+
+
+
+
+function setLabel(startDate, endDate, mychart, data){
+    
+    i=0
+    
+    if(mychart.config.type != "pie"){
+        chartLabels = []
+        yData = []
+        while( startDate <= endDate){
+            chartLabels.push(months[startDate.getMonth()] +" "+ startDate.getDate())
+            try{
+
+                if(data[i].day == getDateValue(startDate)){
+                    
+                    yData.push(data[i].count)
+                    i++
+                } else
+                    yData.push(0)
+
+            } catch{
+                yData.push(0)
+            }
+            startDate.setDate(startDate.getDate()+1)
+
+        }
+
+        mychart.data.labels = chartLabels
+        mychart.data.datasets[0].data = yData
+
+    }else{
+        chartLabels = ["CASE", "CCS", "CCJ", "CEA","CMBA", "CNAHS"]
+        yData = []
+        for( i=0;i < 6;i++){
+            for(ii=0; ii< data.length; ii++){
+                if(data[ii].user__department__abbv == chartLabels[i]){
+                    yData.push(data[ii].count)    
+                    break
+                } 
+                if(ii == data.length-1)
+                    yData.push(0)
+            }
+        }
+        mychart.data.datasets[0].data = yData
+    }
+
+        
+    mychart.update();
+    start = new Date(date.getFullYear(), date.getMonth(), 1)
+    
+
+    
+}
+
+
+  
+
+
+  
+Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+Chart.defaults.global.defaultFontColor = '#292b2c';
+
+var myAreaChartctx = document.getElementById("myAreaChart");
+
+    var ActiveUserchart = new Chart(myAreaChartctx, {
+
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: "Active Users",
+          lineTension: 0.3,
+          backgroundColor: "rgba(191, 63, 63)", 
+          borderColor: "rgba(243, 246, 85)",
+          pointRadius: 5,
+          pointBackgroundColor: "rgba(191, 63, 63)",
+          pointBorderColor: "rgba(255,255,255,0.8)",
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: "rgba(243, 246, 85)",
+          pointHitRadius: 50,
+          pointBorderWidth: 2,
+          data: [],
+        }],
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: "{{activeUserMax}}"*2,
+              maxTicksLimit: 5
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, .125)",
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+
+
+var myBarChartctx = document.getElementById("myBarChart");
+var siteAccesschart = new Chart(myBarChartctx, {
+  type: 'bar',
+  data: {
+    
+    datasets: [{
+      label: [],
+      backgroundColor: "rgba(191, 63, 63)",
+      borderColor: "rgba(243, 246, 85)",
+      data: [],
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'sites'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 11
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: "{{siteAccessMax}}"*2,
+          maxTicksLimit: 8
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+
+
+var myPieChart = document.getElementById("myPieChart");
+var collegeschart = new Chart(myPieChart, {
+  type: 'pie',
+  data: {
+    labels: ["CASE", "CCS", "CCJ", "CEA","CMBA", "CNAHS"],
+    
+    datasets: [{
+      data: [1,2,3],
+      backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', "#663399", "#C87533"],
+    }],
+  },
+});
+</script>

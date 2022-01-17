@@ -1,0 +1,623 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TERA</title>
+         <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="{% static 'css/adminSite.css' %}" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+
+        <style>
+        .logo{
+          float: left;
+          color: #800000;
+          font-size: 27px;
+          font-weight: 600;
+          line-height: 40px;
+          padding-left: 15px;
+          
+        }
+       .logo-style{
+          height: 2.3em;
+        }
+        </style>
+
+        
+    </head>
+    <body class="sb-nav-fixed">
+         <nav class="sb-topnav navbar navbar-expand" style="background-color: #808080">
+            <!-- Navbar Brand-->
+            <img class="logo logo-style" src="{% static 'images/logo.png' %}">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" style="color: #ffd700; margin-left: 25px" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                           <a class="nav-link" href="{% url 'ra:admin_index_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Manage Users
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='i' %}">Import CSV File</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='s' %}">Register User</a>
+                                    
+                                </nav>
+                            </div>
+
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                                Resources
+                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="{% url 'ra:admin_site_view' %}">Site</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_dissertations_access_view' %}">Dissertations</a>
+                                        </nav>
+                                    </div>
+
+                           
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                        Summary Reports
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_activeuser_view' %}">Active Users</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_siteaccess_view' %}">Site Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_colleges_view' %}">College Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_dissertations_view' %}">Dissertation Access</a>
+                                </nav>
+                                    </div>
+
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            
+                            <a class="nav-link" href="{% url 'ra:admin_tables_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Tables</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{% url 'ra:admin_index_view' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Tables</li>
+                        </ol>
+
+                        <div class="card mb-4"> #users
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Users
+                            </div>
+
+                            <div class="card-body">
+                            <form  action = "" method="POST" autocomplete="off" enctype="multipart/form-data"> 
+                            {% csrf_token %}  
+                                <table id="datatablesSimple">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th>ID Number</th>
+                                            <th>Username</th>
+                                            <th>Last Name</th>
+                                            <th>First Name</th>
+                                            <th>College</th>
+                                            <th>Last Login</th>
+                                            <th colspan="2">Manage</th>
+                                        </tr>
+                                    </thead>
+                                
+                                    <tbody>
+                           
+
+                                        {% for user in users %}
+                                         <tr>
+                                            <td class="userIDInfo"> {{user.student_id}} </td>
+                                            <td class="usernameInfo"> {{user.username}} </td>
+                                            <td class="last_nameInfo"> {{user.last_name}} </td>
+                                            <td class="first_nameInfo"> {{user.first_name}} </td>
+                                            <td class="department__abbvInfo"> {{user.department__abbv}} </td>
+                                            <td class="last_loginInfo">{{user.last_login}} </td>
+
+    
+                                            <td>
+
+                                               
+                                                <a type="button" class="editUser"                 
+                                                    href="#" data-toggle="modal" data-target="#editModal" >
+                                                    <i class="far fa-edit"  style="color: #ffd700"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a id ="{{user.student_id}}" class="deleteUser" >
+                                                     <!-- data-toggle="modal" data-target="#deleteUserModal"> -->
+                                                    <i class="fa fa-trash" style="color: #800000; cursor: pointer"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+            
+                    
+                                        {% endfor %}
+                                     
+                                    </tbody>
+                                    
+                                </table>
+                                </form>
+             
+                            <!-- </form> -->
+                            </div>
+                        </div>
+
+                        <div class="card mb-4"> <!-- colleges -->
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Colleges
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesColleges">
+                                    <thead>
+                                        <tr>
+                                            <th>College</th>
+                                            <th>Number of Active Users</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>College</th>
+                                            <th>Number of Active Users</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        {% for college in activeUser_perCollege %}
+                                            <tr>
+                                                <td>{{college.name}}</td>
+                                                <td>{{college.activeCount}}</td>
+
+                                            </tr>
+                                        {% endfor %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div><!-- Colleges -->
+                        </div>
+
+                        <div class="card mb-4"> <!-- Sites -->
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Sites
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSites">
+                                    <thead>
+                                        <tr>
+                                            <th>Site Name</th>
+                                            <th>Link</th>
+                                            <th>Accumulated Number of Access</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Site Name</th>
+                                            <th>Link</th>
+                                            <th>Accumulated Number of Access</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for site in siteAccess %}
+                                            <tr>
+                                                <td>{{site.name}}</td>
+                                                <td><a href="{{site.url}}">{{site.url}}</a></td>
+                                                <td>{{site.accessCount}}</td>
+
+                                            </tr>
+                                        {% endfor %}
+                                      
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                   
+                        
+                        <div class="card mb-4"> <!-- dissertations -->
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Dissertations
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesDissertations">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Authors</th>
+                                            <th>College</th>
+                                            <th>Status</th>
+                                            <th colspan="2">Manage</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Authors</th>
+                                            <th>College</th>
+                                            <th>Status</th>
+                                            <th colspan="2">Manage</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for d in dissertations %}
+                                        <tr>
+                                            <td>{{d.title}}</td>
+                                            <td>{{d.author}}</td>
+                                            <td>{{d.department__name}}</td>
+                                            <td>
+                                            {% if d.isActive == True %}
+                                                <input class="input-switch" type="checkbox" id="status" onclick="press" checked/>
+                                            {% endif %}
+
+                                            {% if d.isActive == False %}
+                                              <input class="input-switch" type="checkbox" id="status" onclick="press" />
+                                            {% endif %}
+                                            
+                                              <label class="label-switch" for="toggle"></label>
+                                              <span class="info-text"></span>
+                                            </td>
+                                             <td>
+                                                <a class="edit" title="Edit" data-toggle="tooltip"><i class="far fa-edit" style="color: #ffd700"></i></a>
+                                            </td>
+                                            <td>
+                                                <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash" style="color: #800000"></i></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td>{{d.title}}</td>
+                                            <td>{{d.author}}</td>
+                                            <td>{{d.department__name}}</td>
+                                            <td>
+                                            {% if d.isActive == True %}
+                                              <input class="input-switch" type="checkbox" id="status" onclick="press" checked/>
+                                            {% endif %}
+
+                                            {% if d.isActive == False %}
+                                              <input class="input-switch" type="checkbox" id="status" onclick="press" />
+                                            {% endif %}
+
+                                              <label class="label-switch" for="status"></label>
+                                              <span class="info-text"></span>
+                                            </td>
+                                             <td>
+                                                <a class="edit" title="Edit" data-toggle="tooltip"><i class="far fa-edit" style="color: #ffd700"></i></a>
+                                            </td>
+                                            <td>
+                                                <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash" style="color: #800000"></i></a>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; TERA 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <!-- edit modal             -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content" style="background-color: white">
+                        <div class="modal-header" style="background-color:#800000">
+                          <h5 class="modal-title" style="color: white">User information</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+
+                        <div id="editModal_body" class="card-body">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label for="student_id" class="col-md-4 col-form-label text-md-right"><a style="color: red">* &nbsp;</a>ID number</label>
+                                    <div class="col-md-6 ">
+                                        <input type="text" id="oldStudent_id" class="form-control" name="student_id" value="" style="display: none">
+                                        <input type="text" id="newStudent_id" class="form-control" name="newStudent_id" value="">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="username" class="col-md-4 col-form-label text-md-right"><a style="color: red">* &nbsp;</a>Username</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="username" class="form-control" name="username">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="first_name" class="col-md-4 col-form-label text-md-right"><a style="color: red">* &nbsp;</a>First Name</label>
+                                    <div class="col-md-6 ">
+                                        <input type="text" id="first_name" class="form-control" name="first_name" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="last_name" class="col-md-4 col-form-label text-md-right"><a style="color: red">* &nbsp;</a>Last Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="last_name" class="form-control" name="last_name">
+                                    </div>
+                                </div>
+
+
+
+                                
+
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="password" class="form-control" name="password" placeholder="leave blank to retain current password ">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="college" class="col-md-4 col-form-label text-md-right"><a style="color: red">* &nbsp;</a>College</label>
+                                    <div class="col-md-6">
+                                        <select id="college" class="form-control"  name="college"  >
+                                            <option value="CCS" >College of Computer Studies</option>
+                                            <option value="CEA">College of Engineering and Architecture</option>
+                                            <option value="CCJ">College of Criminal Justice</option>
+                                            <option value="CNAHS">College of Nursing and Allied Health Sciences</option>
+                                            <option value="CMBA">College of Management, Business and Accountancy</option>
+                                            <option value="CASE">College of Arts, Sciences and Education</option>
+                                        </select>
+                                    </div>
+                                </div>
+                      
+                                 <center><a id="errorMessage" style="color: red; display: none "> </a><br><br></center>
+                      
+                                    <div class="col-md-6 offset-md-4">
+                                       
+                                        <button type="" id="update" class="btn btn-primary">
+                                            Update
+                                        </button>
+                                        
+                                        <button id="dismissModal" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-left:1px; margin-top: 4px;"> CANCEL</button>
+                                        
+
+                                    </div>
+
+                        </div>
+                       </div>
+                    </div>
+                    </div>
+
+
+           
+
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="{% static 'js/adminScripts.js' %}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+            <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+            <script src="{% static 'js/datatables-simple-colleges.js' %}"></script>
+            <script src="{% static 'js/datatables-dissertations.js' %}"></script>
+            <script src="{% static 'js/datatables-sites.js' %}"></script>
+            <script src="{% static 'js/adminSiteScripts.js' %}"></script> <!-- scripts -->
+    </body>
+</html>
+
+<script type="text/javascript">
+    var oldStudent_id
+    var oldUsername
+    var selectedRow
+
+$(document).ready(function(){
+});
+         
+
+        $(document).on("click", ".deleteUser", function(){
+            selectedRow = $(this).parents("tr")
+            didConfirm = confirm("Do you really want to delete this user?")
+            if(didConfirm){
+                selectedRow.remove()
+
+                $.ajax({
+                  type:"POST",
+                  url:"",
+
+                  data:{
+                    action: 'delete_user',
+                    student_id: $(this).attr("id"),
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                  },
+              
+                }); 
+            }
+            
+        });
+
+
+        $(document).on("click", ".editUser", function(){
+            selectedRow = $(this).parent()
+            username = selectedRow.siblings('.usernameInfo').text().replace(" ", "").replace(" ", "")
+            last_name = selectedRow.siblings('.last_nameInfo').text().replace(" ", "").replace(" ", "")
+            first_name = selectedRow.siblings('.first_nameInfo').text()
+            oldStudent_id = selectedRow.siblings('.userIDInfo').text().replace(" ", "").replace(" ", "")
+            department = selectedRow.siblings('.department__abbvInfo').text().replace(" ", "").replace(" ", "")
+            oldUsername = username
+            // if(a.length == 5)
+            //     department = a.slice(1, -1)
+            // else
+            //     department = a
+            // .siblings('#first_name').val(first_name) 
+            document.getElementById("newStudent_id").value = $.trim(oldStudent_id)
+            document.getElementById("first_name").value = $.trim(first_name)
+            document.getElementById("last_name").value = $.trim(last_name)
+           
+            document.getElementById("username").value = $.trim(oldUsername)
+            $('#college').val(department)
+            // console.log($("#editModal_body").siblings('#first_name'))
+            // alert(username)
+        });
+
+
+        $(document).on("click", "#update", function(){
+            newStudent_id = document.getElementById("newStudent_id").value 
+            first_name = document.getElementById("first_name").value 
+            last_name = document.getElementById("last_name").value 
+            username = document.getElementById("username").value 
+            department = document.getElementById("college").value 
+            password = document.getElementById("password").value 
+
+            $.ajax({
+                  type:"POST",
+                  url:"",
+
+                  data:{
+                    action: 'update_user',
+                    newStudent_id: newStudent_id,
+                    oldStudent_id: oldStudent_id, 
+                    first_name: first_name,
+                    last_name: last_name,
+                    oldUsername: oldUsername,
+                    newUsername: username,
+                    department: department,
+                    password: password,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+
+                  },
+                  success: function(response){
+                    
+                        if(response.isError == 1){
+                            document.getElementById("errorMessage").textContent = response.errorMessage
+                            document.getElementById("errorMessage").style.display="inline"
+                        }
+                            
+                        else{
+                            document.getElementById("dismissModal").click()
+                            user = response.user[0]
+                            
+
+                            selectedRow.siblings('.usernameInfo').text(user.username);
+                            selectedRow.siblings('.last_nameInfo').text(user.last_name);
+                            selectedRow.siblings('.first_nameInfo').text(user.first_name);
+                            selectedRow.siblings('.userIDInfo').text(user.student_id)
+                            selectedRow.siblings('.department__abbvInfo').text(user.department__abbv);
+                            
+                        }                    
+                    
+                  }
+            }); 
+        });
+
+
+        $(window).click(function(e) {
+            document.getElementById("errorMessage").style.display="none"
+            
+        });
+
+        
+
+        </script>
+
+
+
+
+
+
+       <!--  // $('[data-toggle="tooltip"]').tooltip();
+            // var actions = $("table td:last-child").html();
+            // Append table with add row form on add new button click
+            // $(".add-new").click(function(){
+            //     $(this).attr("disabled", "disabled");
+            //     var index = $("table tbody tr:last-child").index();
+            //     var row = '<tr>' +
+            //         '<td><input type="text" class="form-control" name="lastname" id="lastname"></td>' +
+            //         '<td><input type="text" class="form-control" name="firsttname" id="lastname"></td>' +
+            //         '<td><input type="text" class="form-control" name="id" id="id"></td>' +
+            //         '<td><input type="text" class="form-control" name="college" id="college"></td>' +
+            //         '<td><input type="text" class="form-control" name="username" id="password"></td>' +
+            //         '<td><input type="text" class="form-control" name="lastlogin" id="lastlogin"></td>' +
+            //         '<td>' + manage + '</td>' +
+            //     '</tr>';
+            //     $("table").append(row);     
+            //     $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+            //     $('[data-toggle="tooltip"]').tooltip();
+            // });
+
+
+            // Edit row on edit button click
+            //$(document).on("click", ".edit", function(){        
+            //    $(this).parents("tr").find("td:not(:last-child)").each(function(){
+            //        $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+            //    });     
+            //    $(this).parents("tr").find(".add, .edit").toggle();
+            //    $(".add-new").attr("disabled", "disabled");
+            //});
+
+            // Delete row on delete button click -->

@@ -1,0 +1,460 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TERA</title>
+        <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="{% static 'css/adminStyles.css' %}" rel="stylesheet" /> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
+        <!-- For Registration -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+        <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+        <style>
+        .logo{
+          float: left;
+          color: #800000;
+          font-size: 27px;
+          font-weight: 600;
+          line-height: 40px;
+          padding-left: 15px;
+          
+        }
+       .logo-style{
+          height: 2.3em;
+        }
+    </style>
+
+    </head>
+    <style>
+.navbar-laravel
+{
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+}
+
+.navbar-brand , .nav-link, .my-form, .login-form
+{
+    font-family: Raleway, sans-serif;
+}
+
+.my-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.my-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.login-form
+{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.login-form .row
+{
+    margin-left: 0;
+    margin-right: 0;
+}
+    </style>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand" style="background-color: #808080">
+            <!-- Navbar Brand-->
+            <img class="logo logo-style" src="{% static 'images/logo.png' %}">
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" style="color: #ffd700; margin-left: 25px" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                           <a class="nav-link" href="{% url 'ra:admin_index_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                                Manage Users
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='i' %}">Import CSV File</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_registration_view' rtype='s' %}">Register User</a>
+                                    
+                                </nav>
+                            </div>
+
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                                Resources
+                                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapsePages" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="{% url 'ra:admin_site_view' %}">Site</a>
+                                            <a class="nav-link" href="{% url 'ra:admin_dissertations_access_view' %}">Dissertations</a>
+                                        </nav>
+                                    </div>
+
+                           
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                        Summary Reports
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'ra:admin_activeuser_view' %}">Active Users</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_siteaccess_view' %}">Site Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_colleges_view' %}">College Access</a>
+                                    <a class="nav-link" href="{% url 'ra:admin_dissertations_view' %}">Dissertation Access</a>
+                                </nav>
+                                    </div>
+
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            
+                            <a class="nav-link" href="{% url 'ra:admin_tables_view' %}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content" >
+                <main >
+                    <div class="container-fluid px-4" >
+                        <h1 class="mt-4">Registration</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{% url 'ra:admin_index_view' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Registration</li>
+                        </ol>
+                        <div class="card mb-4" >
+                            <div class="card-body" >
+                            {% if type == 'i' %}
+
+                                 <form id = "readCSVForm"  name="readCSVForm"  method="post" autocomplete="off" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                   
+                                        <div align="right">
+                                            <input type="submit" id="" name="readCSV" value="read" hidden>
+                                         <input type="button" id="readCSV" name="readCSV" value="read">
+                                         <input type="file" id="file" name="file" style="width: 15%"> 
+                                        
+                                        </div>
+                                        
+                                        
+                                 </form>
+
+                    <div class="card-body">
+                                    {% for m in messages %} 
+                                        <center ><a style="color: red">{{m}}</a></center>
+                                        {% endfor %}
+                            <div class="row justify-content-center">
+                        <div class="col-md-8"> <!-- style="border-style: solid; border-color: black"> -->
+                                <table id="datatablesSimple" >
+                                    <thead>
+                                        <tr>
+                                            <th>ID number</th>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Department</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Last Name</th>
+                                            <th>First Name</th>
+                                            <th>College</th>
+                                            <th>ID Number</th>
+                                            <th>Last Login</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="importUser_table">
+                                        {% for user in users %}
+                                        <tr>
+                                            <td>{{user.id_number}}</td>
+                                            <td>{{user.username}}</td>
+                                            <td>{{user.password}}</td>
+                                            <td>{{user.first_name}}</td>
+                                            <td>{{user.last_name}}</td>
+                                            <td>{{user.department}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            <div align="right">
+                           
+                                    <input  type="submit" id="registerCSV" style="width: 9%; margin-right: 5%" value="register all users"> 
+                           
+                        
+                            </div>
+                    </div>
+                    {% endif %}
+                    {% if type == 's' %}
+                                <main class="my-form" >
+                                    <div class="cotainer" >  
+                                        {% for m in messages %} 
+                                        <center>{{m}}</center>
+                                        {% endfor %}
+
+                                        {% for error in form.errors %} 
+                                        <center ><a style="color: red">{{error}} already exist</a></center>
+                                        {% endfor %}
+                                        <div class="row justify-content-center" >
+                                            <div class="col-md-8" >
+                                                    <div class="card">
+                                                        
+                                                        <div class="card-body">
+                                        
+                <form id = "form1"   method="post" autocomplete="off" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                    <div class="form-group row">
+
+                        <label for="student_id" class="col-md-4 col-form-label text-md-right">ID number</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-user" id="student_id" name="student_id">
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                        <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-user" id="username" name="username">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control form-control-user" id="password" name="password">
+                        </div>
+
+                    </div>
+
+                      <div class="form-group row">
+
+                        <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-user" id="first_name"  name="first_name">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-user" id="last_name" class="form-control" name="last_name">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label for="department" class="col-md-4 col-form-label text-md-right">College</label>
+                        <div class="col-md-6">
+                            <select id="department" class="form-control form-control-user" name="department">
+                                
+                                <option value="CCS">College of Computer Studies</option>
+                                <option value="CEA">College of Engineering and Architecture</option>
+                                <option value="CCJ">College of Criminal Justice</option>
+                                <option value="CNAHS">College of Nursing and Allied Health Sciences</option>
+                                <option value="CABA">College of Management, Business and Accountancy</option>
+                                <option value="CASE">College of Arts, Sciences and Education</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!--
+                    <div class="form-group row">
+                        <label for="nid_number" class="col-md-4 col-form-label text-md-right"><abbr
+                                    title="National Id Card">NID</abbr> Number</label>
+                        <div class="col-md-6">
+                            <input type="text" id="nid_number" class="form-control" name="nid-number">
+                        </div>
+                    </div>
+                -->
+
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" name="btnRegister" class="btn btn-primary">
+                            Register
+                            </button>
+                        </div>
+                         
+                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        </main>
+                                        {% endif %}
+                                    </div>
+
+                                
+
+              
+                            </div>
+                        </div>
+                        </main>
+                        
+                       
+                <!-- <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; TERA 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> -->
+                    </div>
+               
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/adminScripts.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+        <!-- Footer for Registration -->
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
+        <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+    <script type="text/javascript">
+        csvFILE = {{users|safe}}
+        
+        $(document).ready(function($) {
+        try{
+            document.getElementById("registerCSV").onclick = function(e) {
+                if(csvFILE.length == 1)
+                    alert("Please read CSV file")
+                else{
+                    
+                    $.ajax({
+                          
+                          type:"POST",
+                          url:"",
+                          data:{
+                            action: "register_csv",
+                            users: JSON.stringify(csvFILE),
+                            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                          },
+                           success: function(response){
+                                if(response.didExcept >= 1){
+                                        rows = response.errorRows
+                                    alert(rows.length+" rows did have a problem")
+                                    $("#importUser_table").empty();
+
+                                    for(i=0;i<rows.length;i++){
+                                         $("#importUser_table").append(
+                                        '<tr>' +
+                                        '<td>'+ rows[i].username +'</td>' +
+                                        '<td>'+ rows[i].password +'</td>' +
+                                        '<td>'+ rows[i].first_name +'</td>'+
+                                        '<td>'+ rows[i].last_name +'</td>'+
+                                        '<td>'+ rows[i].department +'</td>'+
+                                        '<td>'+ rows[i].id_number +'</td>'+
+                                        '</tr>'
+                                        )
+                                    }
+                                    
+                                } else{
+                                    $("#importUser_table").empty();
+                                    alert(response.usersCount + " users successfully registered")
+                                }
+                            }
+                    });  
+                }
+            }
+
+
+
+            document.getElementById("readCSV").onclick = function(e) {
+            if(document.getElementById("file").value.length == 0)
+                alert("Please select CSV file")
+            else
+                document.getElementById("readCSVForm").submit()
+            }
+        } catch{}
+        
+        
+        
+        });
+
+
+
+         // document.getElementById("file").onchange = function(e) {
+         //     var data = new FormData(),
+         //     files = document.getElementById("file")
+
+          
+         //    $.ajax({
+         //              type:"POST",
+         //              url:"",
+                      
+         //              data:{
+         //                action: "read",
+         //                file: files[0],
+         //                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+         //              }
+         //    }); 
+      
+         // }
+    </script>
+
+    </body>
+</html>
+
